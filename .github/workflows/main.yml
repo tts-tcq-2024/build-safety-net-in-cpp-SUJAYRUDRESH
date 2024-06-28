@@ -1,0 +1,57 @@
+name: Build , Test and Cover
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+       
+    - name: Set up CMake
+      uses: threeal/cmake-action@main
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y libgtest-dev
+        sudo apt-get install -y lcov
+        sudo apt-get install -y gcovr
+        
+        
+    - name: Lizard Runner
+      uses: Uno-Takashi/Lizard-Runner@v3
+      with:
+          path: "./"
+          CCN: "3"
+          exclude: "./build/*"
+          
+
+    - name: Configure CMake
+      run: cmake -B build -H.
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Run tests
+      run: |
+        cd build
+        ctest --output-on-failure
+        
+    - name: collect coverage
+      run: gcovr --gcov-exclude=".*Tests.*" --gcov-exclude=".*test.*" -r . --html --html-details -o coverage.html --print-summary
+
+    - name: create coverage artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: ./*.html
+        retention-days: 21
