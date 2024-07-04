@@ -37,10 +37,18 @@ void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& p
 
     if (shouldAddCode(currentCode, prevCode, prevPrevCode)) {
         soundex += currentCode;
+        prevPrevCode = prevCode;
+        prevCode = currentCode;
+    } else {
+        handleZeroTransition(currentCode, prevCode, prevPrevCode);
     }
-    
-    prevPrevCode = prevCode;
-    prevCode = currentCode;
+}
+
+void Soundex::handleZeroTransition(char currentCode, char& prevCode, char& prevPrevCode) const {
+    if (currentCode != '0' && prevCode == '0') {
+        prevPrevCode = prevCode;
+        prevCode = currentCode;
+    }
 }
 
 bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const {
