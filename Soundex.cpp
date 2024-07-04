@@ -21,34 +21,24 @@ char getSoundexCode(char c) {
 
 std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
-
-    std::string soundex = getInitialSoundex(name);
-    soundex = processRemainingCharacters(name, soundex);
-
-    return padSoundex(soundex);
-}
-
-std::string getInitialSoundex(const std::string& name) {
-    return std::string(1, toupper(name[0]));
-}
-
-std::string processRemainingCharacters(const std::string& name, const std::string& initialSoundex) {
-    std::string soundex = initialSoundex;
-    char prevCode = getSoundexCode(name[0]);
-
-    for (size_t i = 1; i < name.size() && soundex.size() < 4; ++i) {
-        char code = getSoundexCode(name[i]);
-        if (code != '0' && code != prevCode) {
-            soundex += code;
-            prevCode = code;
+    
+        std::string soundex;
+        char prevCode = '0';
+    
+        soundex += toupper(name[0]); // Add the first character to soundex
+        prevCode = getSoundexCode(name[0]);
+    
+        for (size_t i = 1; i < name.size() && soundex.size() < 4; ++i) {
+            char code = getSoundexCode(name[i]);
+            if (code != '0' && code != prevCode) {
+                soundex += code;
+                prevCode = code;
+            }
         }
+    
+        soundex.append(4 - soundex.size(), '0'); // Pad with zeros if necessary
+        return soundex.substr(0, 4); // Ensure the soundex code is exactly 4 characters
     }
 
-    return soundex;
-}
 
-std::string padSoundex(const std::string& soundex) {
-    std::string paddedSoundex = soundex;
-    paddedSoundex.append(4 - soundex.size(), '0');
-    return paddedSoundex.substr(0, 4);
-}
+
