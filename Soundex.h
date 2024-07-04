@@ -49,6 +49,8 @@ private:
     bool isVowel(char c) const;
 
     bool shouldContinueProcessing(size_t nameLength, size_t soundexLength) const;
+
+    bool shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const;
 };
 
 #endif // SOUNDEX_H
