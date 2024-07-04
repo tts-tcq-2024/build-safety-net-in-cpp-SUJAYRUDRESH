@@ -18,6 +18,10 @@ std::string Soundex::startSoundex(const std::string& name) const {
     return std::string(1, toupper(name[0]));
 }
 
+bool Soundex::shouldContinueProcessing(size_t nameLength, size_t soundexLength) const {
+    return nameLength > 1 && soundexLength < 4;
+}
+
 void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
     if (name.length() <= 1) {
         return;
@@ -26,7 +30,7 @@ void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& 
     char prevCode = getSoundexCode(name[0]);
     char prevPrevChar = toupper(name[0]);
 
-    for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
+    for (size_t i = 1; i < shouldContinueProcessing(name.length(), soundex.length()) < 4; ++i) {
         processCurrentChar(soundex, name[i], prevCode, prevPrevChar);
     }
 }
