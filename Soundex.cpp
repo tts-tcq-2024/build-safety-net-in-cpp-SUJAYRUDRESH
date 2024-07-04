@@ -35,10 +35,16 @@ void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& 
     }
 }
 
+bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const {
+    return isValidSoundexCode(currentCode) && 
+           isNewCode(currentCode, prevCode) && 
+           !isSeparatedByHorW(prevPrevCode);
+}
+
 void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& prevCode, char& prevPrevChar) const {
     char currentCode = getSoundexCode(currentChar);
 
-    if (isValidSoundexCode(currentCode) && isNewCode(currentCode, prevCode) && shouldAddCode(prevPrevChar, currentChar)) {
+    if (shouldAddCode(currentCode, prevCode, prevPrevCode)) {
         processCharacter(soundex, currentCode, prevCode);
     }
 
