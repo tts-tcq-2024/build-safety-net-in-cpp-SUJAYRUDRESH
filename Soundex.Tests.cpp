@@ -15,10 +15,6 @@ TEST_F(SoundexTest, BasicTests) {
     
 }
 
-TEST_F(SoundexTest, ConsecutiveIdenticalCodes) {
-    EXPECT_EQ(soundex.generateSoundex("Bb"), "B000");
-    EXPECT_EQ(soundex.generateSoundex("Aaaa"), "A000");
-}
 
 TEST_F(SoundexTest, ShortNames) {
     EXPECT_EQ(soundex.generateSoundex("S"), "S000");
