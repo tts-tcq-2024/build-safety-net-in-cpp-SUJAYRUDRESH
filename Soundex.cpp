@@ -46,7 +46,11 @@ void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& p
 bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const {
     return isValidSoundexCode(currentCode) && 
            isNewCode(currentCode, prevCode) && 
-           !(isSeparatedByHorW(prevPrevCode) && !isVowel(currentCode));
+           canAddCode(prevPrevCode, currentCode);
+}
+
+bool Soundex::canAddCode(char prevPrevCode, char currentCode) const {
+    return !(isSeparatedByHorW(prevPrevCode) && !isVowel(currentCode));
 }
 
 bool Soundex::isValidSoundexCode(char code) const {
