@@ -43,6 +43,10 @@ TEST_F(SoundexTest, GenerateSoundexVeryShortNames) {
     EXPECT_EQ(soundex.generateSoundex("B"), "B000");
 }
 
+TEST_F(SoundexTest, GenerateSoundexNamesWithConsecutiveConsonants) {
+    EXPECT_EQ(soundex.generateSoundex("Bbbb"), "B100");
+    EXPECT_EQ(soundex.generateSoundex("Ddd"), "D300");
+}
 
 TEST_F(SoundexTest, NonAlphabeticCharacters) {
     EXPECT_EQ(soundex.generateSoundex("Sujay-s"), "S220");
