@@ -46,7 +46,7 @@ void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& p
 bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const {
     return isValidSoundexCode(currentCode) && 
            isNewCode(currentCode, prevCode) && 
-           canAddCode(prevPrevCode, currentCode) && currentCode != getSoundexCode(prevChar);
+           canAddCode(prevPrevCode, currentCode) && currentCode != getSoundexCode(prevPrevCode);
 }
 
 bool Soundex::canAddCode(char prevPrevCode, char currentCode) const {
