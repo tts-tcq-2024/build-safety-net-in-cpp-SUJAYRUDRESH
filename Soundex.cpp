@@ -25,7 +25,7 @@ bool Soundex::isNewCode(char code, char prevCode) const {
     return code != prevCode;
 }
 
-void Soundex::processCharacter(std::string& soundex, char code, char& prevCode) const {
+void Soundex::processCharacter(std::string& soundex, char code, char& prevCode, char prevPrevCode) const {
 if (isValidCode(code)) {
         // Check if current and previous codes are the same
         if (isNewCode(code, prevCode)) {
