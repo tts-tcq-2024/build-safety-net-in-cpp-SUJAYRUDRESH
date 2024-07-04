@@ -8,7 +8,7 @@ protected:
 
 TEST_F(SoundexTest, BasicTests) {
     EXPECT_EQ(soundex.generateSoundex("Sujay"), "S200");
-    EXPECT_EQ(soundex.generateSoundex("Rudresh"), "R326");
+    EXPECT_EQ(soundex.generateSoundex("Rudresh"), "R362");
 }
 
 TEST_F(SoundexTest, ConsecutiveIdenticalCodes) {
