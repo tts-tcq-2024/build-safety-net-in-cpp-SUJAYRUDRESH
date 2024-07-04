@@ -48,7 +48,7 @@ void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& p
         processCharacter(soundex, currentCode, prevCode);
     }
 
-    prevPrevChar = toupper(currentChar);
+    prevPrevCode = toupper(currentChar);
 }
 
 bool Soundex::shouldAddCode(char prevPrevChar, char currentChar) const {
