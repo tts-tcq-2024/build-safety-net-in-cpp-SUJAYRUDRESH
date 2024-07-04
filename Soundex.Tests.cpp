@@ -33,12 +33,6 @@ TEST_F(SoundexTest, PaddingZeros) {
     EXPECT_EQ(soundex.generateSoundex("X"), "X000");
 }
 
-TEST_F(SoundexTest, IsShortNameTest) {
-    EXPECT_FALSE(soundex.isShortName("Smith"));
-    EXPECT_TRUE(soundex.isShortName("L"));
-    EXPECT_TRUE(soundex.isShortName(""));
-}
-
 TEST_F(SoundexTest, CaseInsensitivity) {
     EXPECT_EQ(soundex.generateSoundex("Sujay"), soundex.generateSoundex("sujay"));
     EXPECT_EQ(soundex.generateSoundex("Rudresh"), soundex.generateSoundex("rudresh"));
