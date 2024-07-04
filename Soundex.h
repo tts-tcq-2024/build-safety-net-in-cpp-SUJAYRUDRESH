@@ -15,7 +15,7 @@ private:
     std::string startSoundex(const std::string& name) const;
     void generateRemainingSoundex(std::string& soundex, const std::string& name) const;
     void padWithZeros(std::string& soundex) const;
-    bool Soundex::isVowel(char c) const;
+    bool isVowel(char c) const;
     bool isValidCode(char code) const;
     bool isNewCode(char code, char prevCode) const;
     void processCharacter(std::string& soundex, char code, char& prevCode) const;
