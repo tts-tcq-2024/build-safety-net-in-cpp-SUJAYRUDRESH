@@ -41,7 +41,7 @@ bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) 
            !isSeparatedByHorW(prevPrevCode);
 }
 
-void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& prevCode, char& prevPrevChar) const {
+void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& prevCode, char& prevPrevCode) const {
     char currentCode = getSoundexCode(currentChar);
 
     if (shouldAddCode(currentCode, prevCode, prevPrevCode)) {
