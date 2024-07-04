@@ -1,5 +1,6 @@
 #include "Soundex.h"
 #include <cctype>
+#include <unordered_map>
 
 const char Soundex::soundexMap[26] = {
     //  A     B    C    D    E   F     G   H     I    J    K    L    M    N   O      P   Q    R    S    T    U    V   W     X   Y     Z
@@ -33,10 +34,17 @@ void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& 
 void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& prevCode, char& prevPrevCode) const {
     char currentCode = getSoundexCode(currentChar);
 
-    if (isValidSoundexCode(currentCode) && isNewCode(currentCode, prevCode) && shouldAddCode(prevPrevCode, currentChar)) {
+    if (shouldProcessCharacter(currentCode, prevCode, prevPrevCode)) {
         processCharacter(soundex, currentCode, prevCode);
     }
+
     prevPrevCode = toupper(currentChar);
+}
+
+bool Soundex::shouldProcessCharacter(char currentCode, char prevCode, char prevPrevCode) const {
+    return isValidSoundexCode(currentCode) && 
+           isNewCode(currentCode, prevCode) && 
+           !isSeparatedByHorW(prevPrevCode);
 }
 
 void Soundex::processCharacter(std::string& soundex, char code, char& prevCode) const {
@@ -52,11 +60,6 @@ bool Soundex::isValidSoundexCode(char code) const {
 
 bool Soundex::isNewCode(char code, char prevCode) const {
     return code != prevCode;
-}
-
-bool Soundex::shouldAddCode(char prevPrevCode, char currentChar) const {
-    char currentCode = getSoundexCode(currentChar);
-    return isValidSoundexCode(currentCode) && isNewCode(currentCode, prevPrevCode) && !isSeparatedByHorW(prevPrevCode);
 }
 
 bool Soundex::isSeparatedByHorW(char prevPrevCode) const {
