@@ -35,7 +35,7 @@ TEST_F(SoundexTest, CaseInsensitivity) {
 }
 
 TEST_F(SoundexTest, NonAlphabeticCharacters) {
-    EXPECT_EQ(soundex.generateSoundex("Sujay-s"), "O640");
+    EXPECT_EQ(soundex.generateSoundex("Sujay-s"), "S220");
 }
 
 int main(int argc, char **argv) {
