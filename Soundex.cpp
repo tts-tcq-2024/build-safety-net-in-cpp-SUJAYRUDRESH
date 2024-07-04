@@ -18,11 +18,11 @@ std::string Soundex::startSoundex(const std::string& name) const {
     return std::string(1, toupper(name[0]));
 }
 
-void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
-    if (name.length() <= 1) {
-        return;
-    }
+bool Soundex::isShortName(const std::string& name) const {
+    return name.length() <= 1;
+}
 
+void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
     char prevCode = getSoundexCode(name[0]);
     char prevPrevCode = toupper(name[0]);
 
@@ -81,7 +81,9 @@ std::string Soundex::generateSoundex(const std::string& name) {
     if (name.empty()) return "";
 
     std::string soundex = startSoundex(name);
-    generateRemainingSoundex(soundex, name);
+    if (!isShortName(name)) {
+        generateRemainingSoundex(soundex, name);
+    }
     padWithZeros(soundex);
 
     return soundex;
