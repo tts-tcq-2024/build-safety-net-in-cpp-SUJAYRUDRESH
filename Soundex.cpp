@@ -50,7 +50,7 @@ bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) 
 }
 
 bool Soundex::canAddCode(char prevPrevCode, char currentCode) const {
-    return !(isSeparatedByHorW(prevPrevCode) && !isVowel(currentCode)) && currentCode != prevPrevCode;
+    return !(isSeparatedByHorW(prevPrevCode) && !isVowel(currentCode));
 }
 
 bool Soundex::isValidSoundexCode(char code) const {
