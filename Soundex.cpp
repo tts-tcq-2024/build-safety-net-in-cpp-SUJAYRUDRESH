@@ -1,3 +1,8 @@
+#include "Soundex.h"
+#include <cctype>
+#include <string>
+
+
 const char Soundex::soundexMap[26] = {
     //  A     B    C    D    E   F     G   H     I    J    K    L    M    N   O      P   Q    R    S    T    U    V   W     X   Y     Z
     '0', '1', '2', '3', '0', '1', '2', '0', '0', '2', '2', '4', '5', '5', '0', '1', '0', '6', '2', '3', '0', '1', '0', '2', '0', '2'
