@@ -1,5 +1,6 @@
 #include "Soundex.h"
 #include <cctype>
+#include <unordered_map>
 
 const char Soundex::soundexMap[26] = {
 //  A     B    C    D    E   F     G   H     I    J    K    L    M    N   O      P   Q    R    S    T    U    V   W     X   Y     Z
@@ -17,7 +18,25 @@ std::string Soundex::startSoundex(const std::string& name) const {
     return std::string(1, toupper(name[0]));
 }
 
-bool Soundex::isValidCode(char code) const {
+void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
+    if (name.length() <= 1) return;
+
+    char prevCode = getSoundexCode(name[0]);
+    char prevPrevChar = toupper(name[0]);
+
+    for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
+        char code = getSoundexCode(name[i]);
+
+        if (isValidSoundexCode(code) && (isNewCode(code, prevCode) || shouldAddCode(prevPrevChar, name[i]))) {
+            soundex += code;
+            prevCode = code;
+        }
+        
+        prevPrevChar = toupper(name[i]);
+    }
+}
+
+bool Soundex::isValidSoundexCode(char code) const {
     return code != '0';
 }
 
@@ -25,37 +44,15 @@ bool Soundex::isNewCode(char code, char prevCode) const {
     return code != prevCode;
 }
 
-void Soundex::processCharacter(std::string& soundex, char code, char& prevCode, char prevPrevCode) const {
-if (isValidCode(code)) {
-        // Check if current and previous codes are the same
-        if (isNewCode(code, prevCode)) {
-            // Check if separated by 'h' or 'w'
-            if ((prevPrevCode == 'H' || prevPrevCode == 'W') && !isVowel(prevPrevCode)) {
-                // Only add the code if it's different from the previous code
-                if (code != prevCode) {
-                    soundex += code;
-                    prevCode = code;
-                }
-            } else {
-                // Always add the code if it's different from the previous code
-                soundex += code;
-                prevCode = code;
-            }
-        }
-    }
+bool Soundex::shouldAddCode(char prevPrevChar, char currentChar) const {
+    char upperPrevChar = toupper(prevPrevChar);
+    char upperCurrentChar = toupper(currentChar);
+    
+    return (isSeparatedByHOrW(upperPrevChar, upperCurrentChar) && !isVowel(upperPrevChar));
 }
 
-void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
-    if (name.length() <= 1) return;
-
-    char prevCode = getSoundexCode(name[0]);
-    char prevPrevCode = toupper(name[0]);
-
-    for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
-        char code = getSoundexCode(name[i]);
-        processCharacter(soundex, code, prevCode, prevPrevCode);
-        prevPrevCode = toupper(name[i]);
-    }
+bool Soundex::isSeparatedByHOrW(char prevChar, char currentChar) const {
+    return (prevChar == 'H' || prevChar == 'W') && !isVowel(currentChar);
 }
 
 void Soundex::padWithZeros(std::string& soundex) const {
