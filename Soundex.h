@@ -53,7 +53,7 @@ private:
     bool shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const;
 
     bool isShortName(const std::string& name) const;
-    bool canAddCode(char prevPrevCode, char currentCode) const 
+    bool canAddCode(char prevPrevCode, char currentCode) const ;
 };
 
 #endif // SOUNDEX_H
