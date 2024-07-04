@@ -7,8 +7,8 @@ protected:
 };
 
 TEST_F(SoundexTest, BasicTests) {
-    EXPECT_EQ(soundex.generateSoundex("Sujay"), "S530");
-    EXPECT_EQ(soundex.generateSoundex("Rudresh"), "J525");
+    EXPECT_EQ(soundex.generateSoundex("Sujay"), "S200");
+    EXPECT_EQ(soundex.generateSoundex("Rudresh"), "R326");
 }
 
 TEST_F(SoundexTest, ConsecutiveIdenticalCodes) {
@@ -17,13 +17,13 @@ TEST_F(SoundexTest, ConsecutiveIdenticalCodes) {
 }
 
 TEST_F(SoundexTest, ShortNames) {
-    EXPECT_EQ(soundex.generateSoundex("S"), "J000");
-    EXPECT_EQ(soundex.generateSoundex("So"), "J000");
-    EXPECT_EQ(soundex.generateSoundex("Son"), "J500");
+    EXPECT_EQ(soundex.generateSoundex("S"), "S000");
+    EXPECT_EQ(soundex.generateSoundex("So"), "S000");
+    EXPECT_EQ(soundex.generateSoundex("Son"), "S500");
 }
 
 TEST_F(SoundexTest, PaddingZeros) {
-    EXPECT_EQ(soundex.generateSoundex("JAM"), "L500");
+    EXPECT_EQ(soundex.generateSoundex("Jam"), "J500");
     EXPECT_EQ(soundex.generateSoundex("Fyn"), "F500");
     EXPECT_EQ(soundex.generateSoundex("Zz"), "Z000");
     EXPECT_EQ(soundex.generateSoundex("X"), "X000");
@@ -35,9 +35,8 @@ TEST_F(SoundexTest, CaseInsensitivity) {
 }
 
 TEST_F(SoundexTest, NonAlphabeticCharacters) {
-    EXPECT_EQ(soundex.generateSoundex("Sujay-s"), "O640");
+    EXPECT_EQ(soundex.generateSoundex("Sujay-s"), "S220");
 }
-
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
