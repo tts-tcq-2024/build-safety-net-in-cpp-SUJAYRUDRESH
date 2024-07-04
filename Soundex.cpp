@@ -29,7 +29,7 @@ void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& 
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
         char currentChar = name[i];
 
-        if (isValidCode(getSoundexCode(currentChar)) && isNewCode(getSoundexCode(currentChar), prevCode)) {
+        if (isValidSoundexCode(getSoundexCode(currentChar)) && isNewCode(getSoundexCode(currentChar), prevCode)) {
             if (!isSeparatedByHorW(prevPrevCode)) {
                 processCharacter(soundex, getSoundexCode(currentChar), prevCode);
             }
