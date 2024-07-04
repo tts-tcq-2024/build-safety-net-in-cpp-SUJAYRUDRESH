@@ -47,6 +47,8 @@ private:
 
     // Check if the character is a vowel
     bool isVowel(char c) const;
+
+    bool shouldContinueProcessing(size_t nameLength, size_t soundexLength) const;
 };
 
 #endif // SOUNDEX_H
