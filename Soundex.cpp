@@ -62,8 +62,8 @@ bool Soundex::shouldAddCode(char prevPrevCode, char currentChar) const {
     return false;
 }
 
-bool Soundex::isSeparatedByHOrW(char prevChar, char currentChar) const {
-    return (prevChar == 'H' || prevChar == 'W') && !isVowel(currentChar);
+bool Soundex::isSeparatedByHorW(char prevPrevCode) const {
+    return (prevPrevCode == 'H' || prevPrevCode == 'W') && !isVowel(prevPrevCode);
 }
 
 void Soundex::padWithZeros(std::string& soundex) const {
