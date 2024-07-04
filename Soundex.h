@@ -18,6 +18,7 @@ private:
     bool shouldProcessCharacter(char currentCode, char prevCode, char prevPrevCode) const;
     void processCharacter(std::string& soundex, char code, char& prevCode) const;
     bool isValidSoundexCode(char code) const;
+    bool isShortName(const std::string& name) const;
     bool isNewCode(char code, char prevCode) const;
     bool isSeparatedByHorW(char prevPrevCode) const;
     void padWithZeros(std::string& soundex) const;
