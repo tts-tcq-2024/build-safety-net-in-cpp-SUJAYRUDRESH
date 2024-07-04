@@ -1,7 +1,3 @@
-#include "Soundex.h"
-#include <cctype>
-#include <string>
-
 const char Soundex::soundexMap[26] = {
     //  A     B    C    D    E   F     G   H     I    J    K    L    M    N   O      P   Q    R    S    T    U    V   W     X   Y     Z
     '0', '1', '2', '3', '0', '1', '2', '0', '0', '2', '2', '4', '5', '5', '0', '1', '0', '6', '2', '3', '0', '1', '0', '2', '0', '2'
@@ -24,7 +20,7 @@ bool Soundex::isShortName(const std::string& name) const {
 
 void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
     char prevCode = getSoundexCode(name[0]);
-    char prevPrevCode = toupper(name[0]);
+    char prevPrevCode = getSoundexCode(name[0]);
 
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
         processCurrentChar(soundex, name[i], prevCode, prevPrevCode);
@@ -36,16 +32,16 @@ void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& p
 
     if (shouldAddCode(currentCode, prevCode, prevPrevCode)) {
         soundex += currentCode;
-        prevCode = currentCode;
     }
-
-    prevPrevCode = toupper(currentChar);
+    
+    prevPrevCode = prevCode;
+    prevCode = currentCode;
 }
 
 bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const {
     return isValidSoundexCode(currentCode) && 
            isNewCode(currentCode, prevCode) && 
-           !(isSeparatedByHorW(prevPrevCode) && !isVowel(prevPrevCode));
+           !(isSeparatedByHorW(prevPrevCode) && !isVowel(currentCode));
 }
 
 bool Soundex::isValidSoundexCode(char code) const {
@@ -57,7 +53,7 @@ bool Soundex::isNewCode(char code, char prevCode) const {
 }
 
 bool Soundex::isSeparatedByHorW(char prevPrevCode) const {
-    return (prevPrevCode == 'H' || prevPrevCode == 'W') && !isVowel(prevPrevCode);
+    return prevPrevCode == 'H' || prevPrevCode == 'W';
 }
 
 void Soundex::padWithZeros(std::string& soundex) const {
@@ -66,10 +62,7 @@ void Soundex::padWithZeros(std::string& soundex) const {
     }
 }
 
-bool Soundex::isVowel(char c) const {
-    c = toupper(c);
-    return (getSoundexCode(c) == '0');
-}
+
 
 std::string Soundex::generateSoundex(const std::string& name) {
     if (name.empty()) return "";
@@ -82,3 +75,9 @@ std::string Soundex::generateSoundex(const std::string& name) {
 
     return soundex;
 }
+
+bool Soundex::isVowel(char c) const {
+    c = toupper(c);
+    return (getSoundexCode(c) == '0');
+}
+
