@@ -40,6 +40,8 @@ private:
 
     // Checks if a character is separated by 'h' or 'w' from the current character
     bool isSeparatedByHOrW(char prevChar, char currentChar) const;
+
+    void processCharacter(std::string& soundex, char code, char& prevCode) const;
 };
 
 #endif // SOUNDEX_H
