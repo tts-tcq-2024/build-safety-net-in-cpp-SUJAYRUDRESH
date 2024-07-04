@@ -9,6 +9,10 @@ protected:
 TEST_F(SoundexTest, BasicTests) {
     EXPECT_EQ(soundex.generateSoundex("Sujay"), "S200");
     EXPECT_EQ(soundex.generateSoundex("Rudresh"), "R362");
+    EXPECT_EQ(soundex.generateSoundex("Pratiksha"), "P632");
+    EXPECT_EQ(soundex.generateSoundex("Suraj"), "S620");
+    EXPECT_EQ(soundex.generateSoundex("Manjunath"), "M525");
+    
 }
 
 TEST_F(SoundexTest, ConsecutiveIdenticalCodes) {
@@ -27,6 +31,12 @@ TEST_F(SoundexTest, PaddingZeros) {
     EXPECT_EQ(soundex.generateSoundex("Fyn"), "F500");
     EXPECT_EQ(soundex.generateSoundex("Zz"), "Z000");
     EXPECT_EQ(soundex.generateSoundex("X"), "X000");
+}
+
+TEST_F(SoundexTest, IsShortNameTest) {
+    EXPECT_FALSE(soundex.isShortName("Smith"));
+    EXPECT_TRUE(soundex.isShortName("L"));
+    EXPECT_TRUE(soundex.isShortName(""));
 }
 
 TEST_F(SoundexTest, CaseInsensitivity) {
