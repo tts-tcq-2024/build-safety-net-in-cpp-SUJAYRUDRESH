@@ -54,7 +54,7 @@ bool Soundex::isNewCode(char code, char prevCode) const {
 
 bool Soundex::shouldAddCode(char prevPrevCode, char currentChar) const {
     if (isValidSoundexCode(getSoundexCode(currentChar)) && isNewCode(getSoundexCode(currentChar), prevPrevCode)) {
-        if (isSeparatedByHOrW(prevPrevCode)) {
+        if (isSeparatedByHorW(prevPrevCode)) {
             return false;
         }
         return true;
