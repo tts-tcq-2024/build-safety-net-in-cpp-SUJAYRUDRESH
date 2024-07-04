@@ -19,7 +19,7 @@ std::string Soundex::startSoundex(const std::string& name) const {
 }
 
 void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
-    if (name.length() <= 1) {
+  if (name.length() <= 1) {
         return;
     }
 
@@ -28,14 +28,16 @@ void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& 
 
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
         char currentChar = name[i];
+        char currentCode = getSoundexCode(currentChar);
 
-        if (isValidSoundexCode(getSoundexCode(currentChar)) && isNewCode(getSoundexCode(currentChar), prevCode)) {
-            if (!isSeparatedByHorW(prevPrevCode)) {
-                processCharacter(soundex, getSoundexCode(currentChar), prevCode);
+        if (isValidSoundexCode(currentCode)) {
+            if (isNewCode(currentCode, prevCode)) {
+                if (!(isSeparatedByHorW(prevPrevCode) && !isVowel(prevPrevCode))) {
+                    processCharacter(soundex, currentCode, prevCode);
+                }
             }
+            prevPrevCode = toupper(currentChar);
         }
-
-        prevPrevCode = toupper(currentChar);
     }
 }
 
