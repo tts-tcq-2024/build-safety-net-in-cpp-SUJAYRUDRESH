@@ -3,12 +3,18 @@
 
 #include <string>
 
-// Function to get the Soundex code for a given character.
-char getSoundexCode(char c);
+class Soundex {
+public:
+    Soundex();
+    std::string generateSoundex(const std::string& name);
 
-// Function to generate the Soundex code for a given name.
-std::string generateSoundex(const std::string& name);
+private:
+    static const char soundexMap[26];
 
-
+    char getSoundexCode(char c) const;
+    std::string startSoundex(const std::string& name) const;
+    void generateRemainingSoundex(std::string& soundex, const std::string& name) const;
+    void padWithZeros(std::string& soundex) const;
+};
 
 #endif // SOUNDEX_H
