@@ -25,7 +25,7 @@ bool Soundex::isShortName(const std::string& name) const {
 
 void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
     char prevCode = getSoundexCode(name[0]);
-    char prevPrevCode = '0';
+    char prevPrevCode = 0;
 
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
         processCurrentChar(soundex, name[i], prevCode, prevPrevCode);
@@ -37,18 +37,10 @@ void Soundex::processCurrentChar(std::string& soundex, char currentChar, char& p
 
     if (shouldAddCode(currentCode, prevCode, prevPrevCode)) {
         soundex += currentCode;
-        prevPrevCode = prevCode;
-        prevCode = currentCode;
-    } else {
-        handleZeroTransition(currentCode, prevCode, prevPrevCode);
     }
-}
-
-void Soundex::handleZeroTransition(char currentCode, char& prevCode, char& prevPrevCode) const {
-    if (currentCode != '0' && prevCode == '0') {
-        prevPrevCode = prevCode;
-        prevCode = currentCode;
-    }
+    
+    prevPrevCode = prevCode;
+    prevCode = currentCode;
 }
 
 bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const {
@@ -58,7 +50,7 @@ bool Soundex::shouldAddCode(char currentCode, char prevCode, char prevPrevCode) 
 }
 
 bool Soundex::canAddCode(char prevPrevCode, char currentCode) const {
-    return !(isSeparatedByHorW(prevPrevCode) && !isVowel(currentCode)) && currentCode != prevPrevCode;
+    return !(isSeparatedByHorW(prevPrevCode) && !isVowel(currentCode));
 }
 
 bool Soundex::isValidSoundexCode(char code) const {
