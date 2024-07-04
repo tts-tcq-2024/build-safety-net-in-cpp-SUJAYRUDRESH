@@ -39,7 +39,7 @@ private:
     void padWithZeros(std::string& soundex) const;
 
     // Checks if a character is separated by 'h' or 'w' from the current character
-    bool isSeparatedByHOrW(char prevChar, char currentChar) const;
+    bool isSeparatedByHorW(char prevPrevCode) const;
 
     void processCharacter(std::string& soundex, char code, char& prevCode) const;
 };
