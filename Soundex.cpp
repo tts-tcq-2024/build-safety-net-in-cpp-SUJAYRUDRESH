@@ -68,7 +68,7 @@ void Soundex::padWithZeros(std::string& soundex) const {
 
 bool Soundex::isVowel(char c) const {
     c = toupper(c);
-    return (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
+    return (getSoundexCode(c) == '0');
 }
 
 std::string Soundex::generateSoundex(const std::string& name) {
