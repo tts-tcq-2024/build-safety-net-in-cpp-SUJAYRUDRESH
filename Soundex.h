@@ -18,7 +18,7 @@ private:
     bool isVowel(char c) const;
     bool isValidCode(char code) const;
     bool isNewCode(char code, char prevCode) const;
-    void processCharacter(std::string& soundex, char code, char& prevCode) const;
-};
+    void processCharacter(std::string& soundex, char code, char& prevCode, char prevPrevCode) const;
+}; 
 
 #endif // SOUNDEX_H
