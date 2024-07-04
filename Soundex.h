@@ -51,6 +51,8 @@ private:
     bool shouldContinueProcessing(size_t nameLength, size_t soundexLength) const;
 
     bool shouldAddCode(char currentCode, char prevCode, char prevPrevCode) const;
+
+    bool isShortName(const std::string& name) const;
 };
 
 #endif // SOUNDEX_H
