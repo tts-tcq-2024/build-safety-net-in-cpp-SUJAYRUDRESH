@@ -25,7 +25,7 @@ bool Soundex::isShortName(const std::string& name) const {
 
 void Soundex::generateRemainingSoundex(std::string& soundex, const std::string& name) const {
     char prevCode = getSoundexCode(name[0]);
-    char prevPrevCode = 0;
+    char prevPrevCode = '0';
 
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
         processCurrentChar(soundex, name[i], prevCode, prevPrevCode);
